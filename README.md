@@ -12,7 +12,7 @@ In this study, we evaluate the increment value (IncV) of adding a marker, denote
 $$
 \pi(X,Y) =  Pr(D=1\mid X,Y) = \Phi(\beta_0+\beta_1X+\beta_2Y+\beta_3XY),
 $$
-where $`\Phi(\cdot)`$ is the CDF of a standard normal distribution. Given $X$ and $Y$, $\pi(X,Y)$ is the *true* risk. 
+where \(\Phi(\cdot)\) is the CDF of a standard normal distribution. Given $X$ and $Y$, $\pi(X,Y)$ is the *true* risk. 
 
 Typically, in practice, none of the working models are the true model. Having this in mind, we compare the following two misspecified working models: (i) \textit{one-marker model}: $p(X) = \Phi(\gamma_0+\gamma_1X)$, and (ii) \textit{two-marker model}: $p(X,Y) = \Phi(\gamma_0+\gamma_1X+\gamma_2Y)$. 
 
