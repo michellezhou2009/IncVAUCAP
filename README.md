@@ -14,9 +14,7 @@ In this study, we evaluate the increment value (IncV) of adding a marker, denote
 
 where <img src="https://render.githubusercontent.com/render/math?math=\Phi(\cdot)"> is the CDF of a standard normal distribution. Given <img src="https://render.githubusercontent.com/render/math?math=X"> and <img src="https://render.githubusercontent.com/render/math?math=Y">, <img src="https://render.githubusercontent.com/render/math?math=\pi(X,Y)"> is the *true* risk. 
 
-Typically, in practice, none of the working models are the true model. Having this in mind, we compare the following two misspecified working models: 
-
-  - (i) \textit{one-marker model}: <img src="https://render.githubusercontent.com/render/math?math=p(X) = \Phi(\gamma_0 + \gamma_1X)">, and (ii) \textit{two-marker model}: <img src="https://render.githubusercontent.com/render/math?math=p(X,Y) = \Phi(\gamma_0+\gamma_1X+\gamma_2Y)">. 
+Typically, in practice, none of the working models are the true model. Having this in mind, we compare the following two misspecified working models: (i) *one-marker model*: ![](https://latex.codecogs.com/gif.latex?p%28X%29%20%3D%20%5CPhi%28%5Cgamma_0%20&plus;%20%5Cgamma_1X%29), and (ii) \textit{two-marker model}: <img src="https://render.githubusercontent.com/render/math?math=p(X,Y) = \Phi(\gamma_0+\gamma_1X+\gamma_2Y)">. 
 
 In this project, we consider three accuracy measures: AUC (area under the receiver operating characteristic curve), AP (area under the precision-recall curve), and sBrS (scaled Brier score). Their IncV parameters are $\Delta \Psi = \Psi_{M_2} - \Psi_{M_1}$, where $\Psi$ is AUC, AP, or sBrS, and $\Psi_{M_2}$ and $\Psi_{M_1}$ are the accuracy measures for the two-marker model and one-marker model respectively.  
 
