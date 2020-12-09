@@ -16,7 +16,7 @@ where <img src="https://render.githubusercontent.com/render/math?math=\Phi(\cdot
 
 Typically, in practice, none of the working models are the true model. Having this in mind, we compare the following two misspecified working models: (i) *one-marker model*: ![](https://latex.codecogs.com/gif.latex?p%28X%29%20%3D%20%5CPhi%28%5Cgamma_0%20&plus;%20%5Cgamma_1X%29), and (ii) *two-marker model*: ![](https://latex.codecogs.com/gif.latex?p%28X%2CY%29%20%3D%20%5CPhi%28%5Cgamma_0&plus;%5Cgamma_1X&plus;%5Cgamma_2Y%29). 
 
-In this project, we consider three accuracy measures: AUC (area under the receiver operating characteristic curve), AP (area under the precision-recall curve), and sBrS (scaled Brier score). Their IncV parameters are <img src="https://render.githubusercontent.com/render/math?math=\Delta \Psi = \Psi_{M_2} - \Psi_{M_1}">, where $\Psi$ is AUC, AP, or sBrS, and $\Psi_{M_2}$ and $\Psi_{M_1}$ are the accuracy measures for the two-marker model and one-marker model respectively.  
+In this project, we consider three accuracy measures: AUC (area under the receiver operating characteristic curve), AP (area under the precision-recall curve), and sBrS (scaled Brier score). Their IncV parameters are <img src="https://render.githubusercontent.com/render/math?math=\Delta \Psi = \Psi_{M_2} - \Psi_{M_1}">, where <img src="https://render.githubusercontent.com/render/math?math=\Psi"> is AUC, AP, or sBrS, and <img src="https://render.githubusercontent.com/render/math?math=\Psi_{M_2}"> and <img src="https://render.githubusercontent.com/render/math?math=\Psi_{M_1}"> are the accuracy measures for the two-marker model and one-marker model respectively.  
 
 Note that we are interested in the IncV parameters of the population working risk, not in the IncV estimates from a sample, we do not use simulation studies, and thus, the IncV parameters can be directly derived from the distributional assumptions described above.
 
@@ -24,7 +24,7 @@ Note that we are interested in the IncV parameters of the population working ris
 
 * `helpers.R` includes 
 
-    + `R` function which calculates the $\beta_0$ given the values of $\beta_1$, $\beta_2$, $\beta_3$, and the event rate $\pi_1=Pr(D=1)$;
+    + `R` function which calculates the $\beta_0$ given the values of <img src="https://render.githubusercontent.com/render/math?math=\beta_1, \beta_2, \beta_3">, and the event rate <img src="https://render.githubusercontent.com/render/math?math=\pi_1 = Pr(D=1)">;
     + `R` functions which calculates the values of the parameters $\gamma_0$, $\gamma_1$, and $\gamma_2$ for the one-marker and two-marker models;
     + `R` functions which calucates the distributional functions (such as cumulative distribution function, probability density function, and survival function) of the one-marker working risk score $r(X)=\gamma_0 + \gamma_1 X$ and two-marker working risk score $r(X,Y)=\gamma_0 + \gamma_1 X+\gamma_2Y$ for (i) the whole population, (ii) events (subjects with $D=1$), and (iii) non-events (subjects with $D=0$);
     + `R` functions which calculates AUC, AP, and Brier score.
