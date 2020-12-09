@@ -24,12 +24,12 @@ Note that we are interested in the IncV parameters of the population working ris
 
 * `helpers.R` includes 
 
-    + `R` function which calculates the $\beta_0$ given the values of <img src="https://render.githubusercontent.com/render/math?math=\beta_1, \beta_2, \beta_3">, and the event rate <img src="https://render.githubusercontent.com/render/math?math=\pi_1 = Pr(D=1)">;
-    + `R` functions which calculates the values of the parameters $\gamma_0$, $\gamma_1$, and $\gamma_2$ for the one-marker and two-marker models;
-    + `R` functions which calucates the distributional functions (such as cumulative distribution function, probability density function, and survival function) of the one-marker working risk score $r(X)=\gamma_0 + \gamma_1 X$ and two-marker working risk score $r(X,Y)=\gamma_0 + \gamma_1 X+\gamma_2Y$ for (i) the whole population, (ii) events (subjects with $D=1$), and (iii) non-events (subjects with $D=0$);
+    + `R` function which calculates the <img src="https://render.githubusercontent.com/render/math?math=\beta_0"> given the values of <img src="https://render.githubusercontent.com/render/math?math=\beta_1, \beta_2, \beta_3">, and the event rate <img src="https://render.githubusercontent.com/render/math?math=\pi_1 = Pr(D=1)">;
+    + `R` functions which calculates the values of the parameters <img src="https://render.githubusercontent.com/render/math?math=\gamma_0, \gamma_1, \gamma_2"> for the one-marker and two-marker models;
+    + `R` functions which calucates the distributional functions (such as cumulative distribution function, probability density function, and survival function) of the one-marker working risk score ![](https://latex.codecogs.com/gif.latex?r%28X%29%20%3D%20%5Cgamma_0&plus;%5Cgamma_1X) and two-marker working risk score ![](https://latex.codecogs.com/gif.latex?r%28X%2CY%29%20%3D%20%5Cgamma_0&plus;%5Cgamma_1X&plus;%5Cgamma_2Y) for (i) the whole population, (ii) events (subjects with <img src="https://render.githubusercontent.com/render/math?math=D=1">), and (iii) non-events (subjects with <img src="https://render.githubusercontent.com/render/math?math=D=0">);
     + `R` functions which calculates AUC, AP, and Brier score.
     
-* `numstudy.R` includes an `R` function which calculates the AUC, AP, and sBrS of the one-marker and two-marker models as well as their IncV, given the values of $\pi_1$, $\beta_1$, $\beta_2$, and $\beta_3$. For example 
+* `numstudy.R` includes an `R` function which calculates the AUC, AP, and sBrS of the one-marker and two-marker models as well as their IncV, given the values of <img src="https://render.githubusercontent.com/render/math?math=\pi_1, \beta_1, \beta_2, \beta_3">. For example 
 
 ```{r}
 source("numstudy.R")
