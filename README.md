@@ -35,4 +35,4 @@ Note that we are interested in the IncV parameters of the population working ris
 source("numstudy.R")
 numstudy(pi1=0.01, beta1=1, beta2=0.8, beta3=0.2)
 ```
-* `AOF_example.R` includes the R code for calculating the AUC, AP, and sBrS of the prescribed-dose model and ovarian-dose model (for predicting acute ovarian failure) as well as the IncV of ovarian-dose model, compared to the prescribed-dose model. In addition, the data is also provided in `AOF.csv`.
+* `AOF_example.R` includes the R code for estimating the AUC, AP, and sBrS of the prescribed-dose model and ovarian-dose model (for predicting acute ovarian failure (AOF)) as well as generating the plots in Figure 1 of the manuscript. In addition, the data is also provided in `AOF.csv`.
