@@ -8,7 +8,7 @@ This project provides the R code for the numerical study in the preprint <https:
 
 ## Numerical Study
 
-In this study, we evaluate the increment value (IncV) of adding a marker, denoted by $Y$, to a model with an existing marker, denoted by $`X`$. The markers $X$ and $Y$ be independent standard normal random variables. Given the values of these two markers, a binary outcome $D$ follows a Bernoulli distribution with the probability of $D=1$ via the following model:
+In this study, we evaluate the increment value (IncV) of adding a marker, denoted by $Y$, to a model with an existing marker, denoted by <img src="https://render.githubusercontent.com/render/math?math=X">. The markers $X$ and $Y$ be independent standard normal random variables. Given the values of these two markers, a binary outcome $D$ follows a Bernoulli distribution with the probability of $D=1$ via the following model:
 $$
 \pi(X,Y) =  Pr(D=1\mid X,Y) = \Phi(\beta_0+\beta_1X+\beta_2Y+\beta_3XY),
 $$
