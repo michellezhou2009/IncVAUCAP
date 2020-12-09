@@ -123,11 +123,11 @@ yy_pdf <- function(yy,gamma,given="x2"){
 }
 
 
-yy_pdf_case <- function(yy, gamma, beta_true, link="probit", given="x2"){
+yy_pdf_event <- function(yy, gamma, beta_true, link="probit", given="x2"){
   ## Pr(D=1 & Y=y)
   sapply(yy,function(y){
     if (given=="x2"){
-      Jointpdf_case <- function(x2,y,gamma,beta_true,link){
+      Jointpdf_event <- function(x2,y,gamma,beta_true,link){
         ## Pr(D=1 & X2=x2 & Y=y)
         x1 = (y-gamma[3]*x2-gamma[1])/(gamma[2]+gamma[4]*x2)
         eta = beta_true[1]+beta_true[2]*x1+beta_true[3]*x2+beta_true[4]*x1*x2
@@ -135,9 +135,9 @@ yy_pdf_case <- function(yy, gamma, beta_true, link="probit", given="x2"){
         out[is.na(out)] = 0
         return(out)
       }
-      pracma::integral(Jointpdf_case,-5, 5,y=y,gamma=gamma, beta_true=beta_true, link=link)
+      pracma::integral(Jointpdf_event,-5, 5,y=y,gamma=gamma, beta_true=beta_true, link=link)
     } else{
-      Jointpdf_case <- function(x1,y,gamma,beta_true,link){
+      Jointpdf_event <- function(x1,y,gamma,beta_true,link){
         ## Pr(D=1 & X2=x2 & Y=y)
         x2 = (y-gamma[2]*x1-gamma[1])/(gamma[3]+gamma[4]*x1)
         eta = beta_true[1]+beta_true[2]*x1+beta_true[3]*x2+beta_true[4]*x1*x2
@@ -145,16 +145,16 @@ yy_pdf_case <- function(yy, gamma, beta_true, link="probit", given="x2"){
         out[is.na(out)] = 0
         return(out)
       }
-      pracma::integral(Jointpdf_case,-5, 5,y=y,gamma=gamma, beta_true=beta_true, link=link)
+      pracma::integral(Jointpdf_event,-5, 5,y=y,gamma=gamma, beta_true=beta_true, link=link)
     }
   })
 }
 
-yy_pdf_control <- function(yy, gamma, beta_true, link="probit", given="x2"){
+yy_pdf_nonevent <- function(yy, gamma, beta_true, link="probit", given="x2"){
   ## Pr(D=0 & P=p)
   sapply(yy,function(y){
     if (given=="x2"){
-      Jointpdf_control <- function(x2,y,gamma,beta_true,link){
+      Jointpdf_nonevent <- function(x2,y,gamma,beta_true,link){
         ## Pr(D=0 & X2=x2 & Y=y)
         x1 = (y-gamma[3]*x2-gamma[1])/(gamma[2]+gamma[4]*x2)
         eta = beta_true[1]+beta_true[2]*x1+beta_true[3]*x2+beta_true[4]*x1*x2
@@ -162,9 +162,9 @@ yy_pdf_control <- function(yy, gamma, beta_true, link="probit", given="x2"){
         out[is.na(out)]=0
         return(out)
       }
-      pracma::integral(Jointpdf_control,-8, 8,y=y,gamma=gamma, beta_true = beta_true,link=link)
+      pracma::integral(Jointpdf_nonevent,-8, 8,y=y,gamma=gamma, beta_true = beta_true,link=link)
     } else {
-      Jointpdf_control <- function(x1,y,gamma,beta_true,link){
+      Jointpdf_nonevent <- function(x1,y,gamma,beta_true,link){
         ## Pr(D=0 & X2=x2 & Y=y)
         x2 = (y-gamma[2]*x1-gamma[1])/(gamma[3]+gamma[4]*x1)
         eta = beta_true[1]+beta_true[2]*x1+beta_true[3]*x2+beta_true[4]*x1*x2
@@ -172,7 +172,7 @@ yy_pdf_control <- function(yy, gamma, beta_true, link="probit", given="x2"){
         out[is.na(out)]=0
         return(out)
       }
-      pracma::integral(Jointpdf_control,-8, 8,y=y,gamma=gamma, beta_true = beta_true,link=link)
+      pracma::integral(Jointpdf_nonevent,-8, 8,y=y,gamma=gamma, beta_true = beta_true,link=link)
     }
     
   })
@@ -235,7 +235,7 @@ yy_survival = function(yy,gamma,y.max, given="x2"){
 }
 
 
-yy_cdf_case = function(yy,gamma,beta_true, y.min, link="probit", given="x2"){
+yy_cdf_event = function(yy,gamma,beta_true, y.min, link="probit", given="x2"){
   ## Pr(D=1 & Y <= y )
   out = foreach(k=1:length(yy),.combine=c,.packages = "pracma") %dopar% {
     mylink <- function(eta,link){
@@ -244,11 +244,11 @@ yy_cdf_case = function(yy,gamma,beta_true, y.min, link="probit", given="x2"){
              "logit" = {return(exp(eta)/(1+exp(eta)))}
       )
     }
-    yy_pdf_case <- function(yy, gamma, beta_true, link="probit", given="x2"){
+    yy_pdf_event <- function(yy, gamma, beta_true, link="probit", given="x2"){
       ## Pr(D=1 & Y=y)
       sapply(yy,function(y){
         if (given=="x2"){
-          Jointpdf_case <- function(x2,y,gamma,beta_true,link){
+          Jointpdf_event <- function(x2,y,gamma,beta_true,link){
             ## Pr(D=1 & X2=x2 & Y=y)
             x1 = (y-gamma[3]*x2-gamma[1])/(gamma[2]+gamma[4]*x2)
             eta = beta_true[1]+beta_true[2]*x1+beta_true[3]*x2+beta_true[4]*x1*x2
@@ -256,9 +256,9 @@ yy_cdf_case = function(yy,gamma,beta_true, y.min, link="probit", given="x2"){
             out[is.na(out)] = 0
             return(out)
           }
-          pracma::integral(Jointpdf_case,-5, 5,y=y,gamma=gamma, beta_true=beta_true, link=link)
+          pracma::integral(Jointpdf_event,-5, 5,y=y,gamma=gamma, beta_true=beta_true, link=link)
         } else{
-          Jointpdf_case <- function(x1,y,gamma,beta_true,link){
+          Jointpdf_event <- function(x1,y,gamma,beta_true,link){
             ## Pr(D=1 & X2=x2 & Y=y)
             x2 = (y-gamma[2]*x1-gamma[1])/(gamma[3]+gamma[4]*x1)
             eta = beta_true[1]+beta_true[2]*x1+beta_true[3]*x2+beta_true[4]*x1*x2
@@ -266,16 +266,16 @@ yy_cdf_case = function(yy,gamma,beta_true, y.min, link="probit", given="x2"){
             out[is.na(out)] = 0
             return(out)
           }
-          pracma::integral(Jointpdf_case,-5, 5,y=y,gamma=gamma, beta_true=beta_true, link=link)
+          pracma::integral(Jointpdf_event,-5, 5,y=y,gamma=gamma, beta_true=beta_true, link=link)
         }
       })
     }
     
-    pracma::integral(yy_pdf_case,y.min,yy[k],gamma=gamma,beta_true=beta_true,link=link, given=given)
+    pracma::integral(yy_pdf_event,y.min,yy[k],gamma=gamma,beta_true=beta_true,link=link, given=given)
   }
   return(out)
 }
-yy_survival_case = function(yy,gamma,beta_true,y.max, link="probit", given="x2"){
+yy_survival_event = function(yy,gamma,beta_true,y.max, link="probit", given="x2"){
   ## Pr(D=1 & Y >= y )
   out = foreach(k=1:length(yy),.combine=c,.packages = "pracma") %dopar% {
     mylink <- function(eta,link){
@@ -284,11 +284,11 @@ yy_survival_case = function(yy,gamma,beta_true,y.max, link="probit", given="x2")
              "logit" = {return(exp(eta)/(1+exp(eta)))}
       )
     }
-    yy_pdf_case <- function(yy, gamma, beta_true, link="probit", given="x2"){
+    yy_pdf_event <- function(yy, gamma, beta_true, link="probit", given="x2"){
       ## Pr(D=1 & Y=y)
       sapply(yy,function(y){
         if (given=="x2"){
-          Jointpdf_case <- function(x2,y,gamma,beta_true,link){
+          Jointpdf_event <- function(x2,y,gamma,beta_true,link){
             ## Pr(D=1 & X2=x2 & Y=y)
             x1 = (y-gamma[3]*x2-gamma[1])/(gamma[2]+gamma[4]*x2)
             eta = beta_true[1]+beta_true[2]*x1+beta_true[3]*x2+beta_true[4]*x1*x2
@@ -296,9 +296,9 @@ yy_survival_case = function(yy,gamma,beta_true,y.max, link="probit", given="x2")
             out[is.na(out)] = 0
             return(out)
           }
-          pracma::integral(Jointpdf_case,-5, 5,y=y,gamma=gamma, beta_true=beta_true, link=link)
+          pracma::integral(Jointpdf_event,-5, 5,y=y,gamma=gamma, beta_true=beta_true, link=link)
         } else{
-          Jointpdf_case <- function(x1,y,gamma,beta_true,link){
+          Jointpdf_event <- function(x1,y,gamma,beta_true,link){
             ## Pr(D=1 & X2=x2 & Y=y)
             x2 = (y-gamma[2]*x1-gamma[1])/(gamma[3]+gamma[4]*x1)
             eta = beta_true[1]+beta_true[2]*x1+beta_true[3]*x2+beta_true[4]*x1*x2
@@ -306,17 +306,17 @@ yy_survival_case = function(yy,gamma,beta_true,y.max, link="probit", given="x2")
             out[is.na(out)] = 0
             return(out)
           }
-          pracma::integral(Jointpdf_case,-5, 5,y=y,gamma=gamma, beta_true=beta_true, link=link)
+          pracma::integral(Jointpdf_event,-5, 5,y=y,gamma=gamma, beta_true=beta_true, link=link)
         }
       })
     }
     
-    pracma::integral(yy_pdf_case,yy[k],y.max,gamma=gamma,beta_true=beta_true,link=link, given=given)
+    pracma::integral(yy_pdf_event,yy[k],y.max,gamma=gamma,beta_true=beta_true,link=link, given=given)
   }
   return(out)
 }
 
-yy_cdf_control = function(yy,gamma,beta_true, y.min, link="probit", given="x2"){
+yy_cdf_nonevent = function(yy,gamma,beta_true, y.min, link="probit", given="x2"){
   ## Pr(D=0 & Y <= y )
   out = foreach(k=1:length(yy),.combine=c,.packages = "pracma") %dopar% {
     mylink <- function(eta,link){
@@ -325,11 +325,11 @@ yy_cdf_control = function(yy,gamma,beta_true, y.min, link="probit", given="x2"){
              "logit" = {return(exp(eta)/(1+exp(eta)))}
       )
     }
-    yy_pdf_control <- function(yy, gamma, beta_true, link="probit", given="x2"){
+    yy_pdf_nonevent <- function(yy, gamma, beta_true, link="probit", given="x2"){
       ## Pr(D=0 & P=p)
       sapply(yy,function(y){
         if (given=="x2"){
-          Jointpdf_control <- function(x2,y,gamma,beta_true,link){
+          Jointpdf_nonevent <- function(x2,y,gamma,beta_true,link){
             ## Pr(D=0 & X2=x2 & Y=y)
             x1 = (y-gamma[3]*x2-gamma[1])/(gamma[2]+gamma[4]*x2)
             eta = beta_true[1]+beta_true[2]*x1+beta_true[3]*x2+beta_true[4]*x1*x2
@@ -337,9 +337,9 @@ yy_cdf_control = function(yy,gamma,beta_true, y.min, link="probit", given="x2"){
             out[is.na(out)]=0
             return(out)
           }
-          pracma::integral(Jointpdf_control,-8, 8,y=y,gamma=gamma, beta_true = beta_true,link=link)
+          pracma::integral(Jointpdf_nonevent,-8, 8,y=y,gamma=gamma, beta_true = beta_true,link=link)
         } else {
-          Jointpdf_control <- function(x1,y,gamma,beta_true,link){
+          Jointpdf_nonevent <- function(x1,y,gamma,beta_true,link){
             ## Pr(D=0 & X2=x2 & Y=y)
             x2 = (y-gamma[2]*x1-gamma[1])/(gamma[3]+gamma[4]*x1)
             eta = beta_true[1]+beta_true[2]*x1+beta_true[3]*x2+beta_true[4]*x1*x2
@@ -347,17 +347,17 @@ yy_cdf_control = function(yy,gamma,beta_true, y.min, link="probit", given="x2"){
             out[is.na(out)]=0
             return(out)
           }
-          pracma::integral(Jointpdf_control,-8, 8,y=y,gamma=gamma, beta_true = beta_true,link=link)
+          pracma::integral(Jointpdf_nonevent,-8, 8,y=y,gamma=gamma, beta_true = beta_true,link=link)
         }
         
       })
     }
     
-    pracma::integral(yy_pdf_control,y.min,yy[k],gamma=gamma,beta_true=beta_true, link=link, given=given)
+    pracma::integral(yy_pdf_nonevent,y.min,yy[k],gamma=gamma,beta_true=beta_true, link=link, given=given)
   }
   return(out)
 }
-yy_survival_control = function(yy,gamma,beta_true, y.max, link="probit", given="x2"){
+yy_survival_nonevent = function(yy,gamma,beta_true, y.max, link="probit", given="x2"){
   ## Pr(D=0 & Y <= y )
   out = foreach(k=1:length(yy),.combine=c,.packages = "pracma") %dopar% {
     mylink <- function(eta,link){
@@ -366,11 +366,11 @@ yy_survival_control = function(yy,gamma,beta_true, y.max, link="probit", given="
              "logit" = {return(exp(eta)/(1+exp(eta)))}
       )
     }
-    yy_pdf_control <- function(yy, gamma, beta_true, link="probit", given="x2"){
+    yy_pdf_nonevent <- function(yy, gamma, beta_true, link="probit", given="x2"){
       ## Pr(D=0 & P=p)
       sapply(yy,function(y){
         if (given=="x2"){
-          Jointpdf_control <- function(x2,y,gamma,beta_true,link){
+          Jointpdf_nonevent <- function(x2,y,gamma,beta_true,link){
             ## Pr(D=0 & X2=x2 & Y=y)
             x1 = (y-gamma[3]*x2-gamma[1])/(gamma[2]+gamma[4]*x2)
             eta = beta_true[1]+beta_true[2]*x1+beta_true[3]*x2+beta_true[4]*x1*x2
@@ -378,9 +378,9 @@ yy_survival_control = function(yy,gamma,beta_true, y.max, link="probit", given="
             out[is.na(out)]=0
             return(out)
           }
-          pracma::integral(Jointpdf_control,-8, 8,y=y,gamma=gamma, beta_true = beta_true,link=link)
+          pracma::integral(Jointpdf_nonevent,-8, 8,y=y,gamma=gamma, beta_true = beta_true,link=link)
         } else {
-          Jointpdf_control <- function(x1,y,gamma,beta_true,link){
+          Jointpdf_nonevent <- function(x1,y,gamma,beta_true,link){
             ## Pr(D=0 & X2=x2 & Y=y)
             x2 = (y-gamma[2]*x1-gamma[1])/(gamma[3]+gamma[4]*x1)
             eta = beta_true[1]+beta_true[2]*x1+beta_true[3]*x2+beta_true[4]*x1*x2
@@ -388,13 +388,13 @@ yy_survival_control = function(yy,gamma,beta_true, y.max, link="probit", given="
             out[is.na(out)]=0
             return(out)
           }
-          pracma::integral(Jointpdf_control,-8, 8,y=y,gamma=gamma, beta_true = beta_true,link=link)
+          pracma::integral(Jointpdf_nonevent,-8, 8,y=y,gamma=gamma, beta_true = beta_true,link=link)
         }
         
       })
     }
     
-    pracma::integral(yy_pdf_control,yy[k],y.max,gamma=gamma,beta_true=beta_true, link=link, given=given)
+    pracma::integral(yy_pdf_nonevent,yy[k],y.max,gamma=gamma,beta_true=beta_true, link=link, given=given)
   }
   return(out)
 }
@@ -403,14 +403,14 @@ yy_survival_control = function(yy,gamma,beta_true, y.max, link="probit", given="
 auc_fun = function(gamma,pi1,beta_true,y.min,y.max, link="probit", given="x2"){
   pi0 = 1-pi1
   auc_obj_fun = function(yy,gamma,link, given){
-    return(yy_cdf_control(yy,gamma,beta_true,y.min, link=link, given=given)*yy_pdf_case(yy,gamma,beta_true, link=link, given=given))
+    return(yy_cdf_nonevent(yy,gamma,beta_true,y.min, link=link, given=given)*yy_pdf_event(yy,gamma,beta_true, link=link, given=given))
   }
   return(pracma::integral(auc_obj_fun,y.min,y.max,gamma=gamma,link=link, given=given)/(pi1*pi0))
 }
 
 ap_fun = function(gamma,pi1,beta_true,y.min,y.max, link="probit", given="x2"){
   ap_obj_fun = function(yy,gamma,link, given){
-    return((yy_survival_case(yy,gamma,beta_true,y.max, link=link, given=given)/yy_survival(yy,gamma,y.max, given=given))*(yy_pdf_case(yy,gamma,beta_true, link=link, given=given)/pi1))
+    return((yy_survival_event(yy,gamma,beta_true,y.max, link=link, given=given)/yy_survival(yy,gamma,y.max, given=given))*(yy_pdf_event(yy,gamma,beta_true, link=link, given=given)/pi1))
   }
   return(pracma::integral(ap_obj_fun,y.min,y.max,gamma=gamma, link=link, given=given))
 }
