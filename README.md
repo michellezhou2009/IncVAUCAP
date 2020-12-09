@@ -8,13 +8,9 @@ This project provides the R code for the numerical study in the preprint <https:
 
 ## Numerical Study
 
-In this study, we evaluate the increment value (IncV) of adding a marker, denoted by $Y$, to a model with an existing marker, denoted by <img src="https://render.githubusercontent.com/render/math?math=X">. The markers $X$ and $Y$ be independent standard normal random variables. Given the values of these two markers, a binary outcome $D$ follows a Bernoulli distribution with the probability of $D=1$ via the following model:
-$$
-\pi(X,Y) =  Pr(D=1\mid X,Y) = \Phi(\beta_0+\beta_1X+\beta_2Y+\beta_3XY),
-$$
-where \(\Phi(\cdot)\) is the CDF of a standard normal distribution. Given $X$ and $Y$, $\pi(X,Y)$ is the *true* risk. 
+In this study, we evaluate the increment value (IncV) of adding a marker, denoted by <img src="https://render.githubusercontent.com/render/math?math=Y">, to a model with an existing marker, denoted by <img src="https://render.githubusercontent.com/render/math?math=X">. The markers <img src="https://render.githubusercontent.com/render/math?math=X"> and <img src="https://render.githubusercontent.com/render/math?math=Y"> be independent standard normal random variables. Given the values of these two markers, a binary outcome <img src="https://render.githubusercontent.com/render/math?math=D"> follows a Bernoulli distribution with the probability of <img src="https://render.githubusercontent.com/render/math?math=D=1"> via the following model: <img src="https://render.githubusercontent.com/render/math?math=\pi(X,Y)=Pr(D=1\mid X,Y) = \Phi(\beta_0+\beta_1X+\beta_2Y+\beta_3XY)">, where<img src="https://render.githubusercontent.com/render/math?math=\Phi(\cdot)"> is the CDF of a standard normal distribution. Given <img src="https://render.githubusercontent.com/render/math?math=X"> and <img src="https://render.githubusercontent.com/render/math?math=Y">, <img src="https://render.githubusercontent.com/render/math?math=\pi(X,Y)"> is the *true* risk. 
 
-Typically, in practice, none of the working models are the true model. Having this in mind, we compare the following two misspecified working models: (i) \textit{one-marker model}: $p(X) = \Phi(\gamma_0+\gamma_1X)$, and (ii) \textit{two-marker model}: $p(X,Y) = \Phi(\gamma_0+\gamma_1X+\gamma_2Y)$. 
+Typically, in practice, none of the working models are the true model. Having this in mind, we compare the following two misspecified working models: (i) \textit{one-marker model}: <img src="https://render.githubusercontent.com/render/math?math=p(X) = \Phi(\gamma_0+\gamma_1X)">, and (ii) \textit{two-marker model}: <img src="https://render.githubusercontent.com/render/math?math=p(X,Y) = \Phi(\gamma_0+\gamma_1X+\gamma_2Y)">. 
 
 In this project, we consider three accuracy measures: AUC (area under the receiver operating characteristic curve), AP (area under the precision-recall curve), and sBrS (scaled Brier score). Their IncV parameters are $\Delta \Psi = \Psi_{M_2} - \Psi_{M_1}$, where $\Psi$ is AUC, AP, or sBrS, and $\Psi_{M_2}$ and $\Psi_{M_1}$ are the accuracy measures for the two-marker model and one-marker model respectively.  
 
